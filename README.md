@@ -1,6 +1,6 @@
 # FileList2Csv
 ## Set the paths and parameters (must to do first)
-![set the paths](images/08.png))
+![set the paths](images/09.png))
 ## Set the Task Schedule for run automatically by the set time.
 1. open the Windows Task Schedule
 2. select Create Basic Task and enter the task name.
