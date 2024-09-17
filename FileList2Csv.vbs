@@ -14,8 +14,8 @@ Sub Main()
 	''' user settings
 	scannedPath = "c:\Windows\"
 	outputFilePath = "c:\FileList2Csv\" & "FileList.csv"
-	scanSubDir = False
-	separator = "|"
+	scanSubDir = False ' enable to scan all sub-directories under the scannedPath
+	separator = "|" ' define the separator character for the csv file, outputFilePath
 
 	On Error Resume Next
 
