@@ -12,11 +12,13 @@ Sub Main()
 	currentPath = fso.GetAbsolutePathName(".")
 
 	''' user settings
-	scannedPath = "c:\windows\"
-	outputFilePath = currentPath & "\FileList.csv"
+	scannedPath = "c:\Windows\"
+	outputFilePath = "c:\FileList2Csv\" & "FileList.csv"
 	scanSubDir = False
 	separator = "|"
-	
+
+	On Error Resume Next
+
 	Const overWritten = True, unicodeMode = True
 	Set csv = fso.CreateTextFile(outputFilePath, overWritten, unicodeMode)
 	
