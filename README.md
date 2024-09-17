@@ -15,7 +15,7 @@
 6. Enter the Task parameters.
 - Program = cscript
 - Arguments = full path to the FileList2Csv.vbs file on your computer
-- Start in : the same path in the arguments (only path , not include te filename)
+- Start in = the same path in the arguments (only path , not include te filename)
 ![Start a Program](images/05.png))
 ![Task parameters](images/06.png))
 7. Finish.
