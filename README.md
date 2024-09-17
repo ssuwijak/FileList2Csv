@@ -1,8 +1,7 @@
 # FileList2Csv
----
-## set the paths and parameters
+## Set the paths and parameters (must to do first)
 ![set the paths](images/08.png))
-## set the Task Schedule
+## Set the Task Schedule for run automatically by the set time.
 1. open the Windows Task Schedule
 2. select Create Basic Task and enter the task name.
 ![Task Schedule](images/01.png)
@@ -20,3 +19,5 @@
 ![Task parameters](images/06.png))
 7. Finish.
 ![Finish](images/06.png))
+## How to run by command prompt manually.
+`cscript "fullpath/to/FileList2Csv.vbs"`
