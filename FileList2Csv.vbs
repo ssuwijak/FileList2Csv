@@ -14,65 +14,66 @@ Main()
 
 Sub Main()
 	debugMode = True
-	
+
 	ReadArgs()
 	Start()
 End Sub
 
 Sub ReadArgs()
 	Dim args : Set args = WScript.Arguments
-
+	
 	Set fso = CreateObject("Scripting.FileSystemObject")
 	currentPath = fso.GetAbsolutePathName(".")
-	
+
 	debug args.Count
-	
+
 	Select Case args.Count
-		Case 0 ' use this case to hardcode the path and call vbs with none argument
+		Case 0 ' syntax:  cscript filelist2csv.vbs
+			' *** use this case to hardcode the paths and call without argument ***
 			scannedPath = currentPath '"c:\windows" 
 			outputFilePath = currentPath & "\FileList.csv"
 			scanSubDir = False
 			separator = "|"
-		Case 1
+		Case 1 ' syntax: cscript filelist2csv.vbs c:\windows
 			scannedPath = TrimStr(args(0))
 			outputFilePath = currentPath & "\FileList.csv"
 			scanSubDir = False
 			separator = "|"
-		Case 2
+		Case 2 ' syntax: cscript filelist2csv.vbs "c:\program files" ".\filelist.csv"
 			scannedPath = TrimStr(args(0))
 			outputFilePath = TrimStr(args(1))
 			scanSubDir = False
 			separator = "|"
-		Case 3
+		Case 3 ' syntax: cscript filelist2csv.vbs c:\windows ".\filelist.csv" false
 			scannedPath = TrimStr(args(0))
 			outputFilePath = TrimStr(args(1))
 			scanSubDir = ParseBool(TrimStr(args(2)))
 			separator = "|"
-		Case Else
+		Case Else ' syntax: cscript filelist2csv.vbs c:\windows ".\filelist.csv" 0 ","
 			scannedPath = TrimStr(args(0))
 			outputFilePath = TrimStr(args(1))
 			scanSubDir = ParseBool(TrimStr(args(2)))
 			separator = Trimstr(args(3))
 	End Select
-	
+
 	WScript.Echo "FileList2Csv script"
 	WScript.Echo "-------------------"
 	WScript.Echo "Syntax: cscript FileList2Csv.vbs 'path\to\be\scanned' 'path\to\csv\export' include_subdir csv_separator"
-	
+
 	Debug vbTab & "- scannedPath = '" & scannedPath & "'"
 	Debug vbTab & "- outputFilePath = '" & outputFilePath & "'"
 	Debug vbTab & "- scanSubDir = " & CStr(scanSubDir)
 	Debug vbTab & "- separator = '" & separator & "'"
-
+	
 	Dim chkPath(1)
 	chkPath(0) = CheckPath(scannedPath)
 	chkPath(1) = CheckPath(outputFilePath)
-
+	
 	Debug VbCrLf & vbTab & "'" & scannedPath & "' .. " & CStr(chkPath(0))
 	Debug vbTab & "'" & outputFilePath & "' .. " & CStr(chkPath(1))
-
+	
 	If chkPath(0) And chkPath(1) Then
-		Debug VbCrLf
+		Debug ""
 	Else
 		Debug vbTab & "*** error found in arguments ***"
 	End If
@@ -80,18 +81,18 @@ End Sub
 
 Sub Start()
 	On Error Resume Next
-	
+
 	Const overWritten = True, unicodeMode = True
 	Set csv = fso.CreateTextFile(outputFilePath, overWritten, unicodeMode)
-
+	
 	''' write csv headers
 	csv.WriteLine "sep=" & separator
 	csv.WriteLine Replace("Path,FileName,Size,Date Modified,Date Crreated", ",", separator)
-	
-	ScanFiles scannedPath, scanSubDir, separator
 
-	csv.Close
+	ScanFiles scannedPath, scanSubDir, separator
 	
+	csv.Close
+
 	Set csv = Nothing
 	Set fso = Nothing
 End Sub
@@ -99,31 +100,31 @@ End Sub
 Sub ScanFiles(pathToScan, includeSubDir, separatedBy)
 	pathToScan = TrimStr(pathToScan)
 	separatedBy = TrimStr(separatedBy)
-	
+
 	If Not IsEmptyOrNull(pathToScan) Then
 		If fso.FolderExists(pathToScan) Then
 			If IsEmptyOrNull(separatedBy) Then separatedBy = "|"
-			
-			includeSubDir = ParseBool(includeSubDir)
 
+			includeSubDir = ParseBool(includeSubDir)
+			
 			Dim di, f, d, q, chkPath
 			On Error Resume Next
-
+			
 			Set di = fso.GetFolder(pathToScan)
 			q = Chr(34) ' double-quote
 			chkPath = False
-
+			
 			Debug "scanning .. '" & pathToScan & "'"
-
+			
 			For Each f In di.Files
 				Debug Space(16) & "+-- " & f.Name '& vbtab & f.Size
-
+				
 				csv.WriteLine q & f.ParentFolder & q & separatedBy & _
 					q & f.Name & q & separatedBy & _
 					f.Size & separatedBy & _
 					CStr(f.DateLastModified) & separatedBy & _
 					CStr(f.DateCreated)
-				
+
 				If Err.Number <> 0 Then
 					chkPath = True
 					Debug Err.Description
@@ -131,15 +132,15 @@ Sub ScanFiles(pathToScan, includeSubDir, separatedBy)
 					Exit For
 				End If
 			Next
-
+			
 			If includeSubDir And Not chkPath Then
 				For Each d In di.Subfolders
 					ScanFiles d.Path, includeSubDir, separatedBy
 				Next
 			End If
-
+			
 			Set di = Nothing
-
+			
 		End If
 	End If
 End Sub
@@ -178,17 +179,17 @@ Function CheckPath(fullPath) 'as boolean
 				Dim p, i, j
 				i = InStr(fullPath, "\")
 				j = InStrRev(fullPath, "\")
-				
+
 				If j > i + 1 Then
 					p = Left(fullPath, j)
 				Else
 					p = fullPath
 				End If
-
+				
 				ret = fso.FolderExists(p)
 			End If
 		End If
-
+		
 	End If
 	CheckPath = ret
 End Function
