@@ -3,6 +3,10 @@
 > this vbscript is for scanning all files & folders under the specified path. and write them down into a .csv file which can be opened by Excel.
 ### How to use the script in command line mode.
 > `cscript FileLit2Csv.vbs "path\to\be\scanned" "path\of\the\csv\outout\file" scan_subdir_or_not "csv_separator"`
+- "path\to\be\scanned" ... your path to be scanned
+- "path\of\the\csv\outout\file" ... the path for csv file (output)
+- scan_subdir_or_not ... (optional) if you want to scan all sub-folders, set it to be True
+- "csv_separator" ... (optional) if you want to use your csv separator, set it to be ","
 ### How to use the script by Windows Task Scheduler.
 1. Open the code and hardcode your paths and some parameters.
 ![set the paths](images/10.png))
