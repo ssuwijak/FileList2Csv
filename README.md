@@ -7,6 +7,8 @@
 - "path\of\the\csv\outout\file" ... the path for csv file (output)
 - scan_subdir_or_not ... (optional) if you want to scan all sub-folders, set it to be True
 - "csv_separator" ... (optional) if you want to use your csv separator, set it to be ","
+- debugMode ... (optional) if you want to run in quiet mode, set it to be False.
+![debugMode setting](images/13.png))
 ### How to use the script by Windows Task Scheduler.
 1. Open the code and hardcode your paths and some parameters.
 ![set the paths](images/10.png))
