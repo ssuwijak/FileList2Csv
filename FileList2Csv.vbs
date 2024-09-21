@@ -25,7 +25,7 @@ Sub ReadArgs()
 	Set fso = CreateObject("Scripting.FileSystemObject")
 	currentPath = fso.GetAbsolutePathName(".")
 
-	debug args.Count
+	' debug args.Count
 
 	Select Case args.Count
 		Case 0 ' syntax:  cscript filelist2csv.vbs
@@ -87,7 +87,7 @@ Sub Start()
 	
 	''' write csv headers
 	csv.WriteLine "sep=" & separator
-	csv.WriteLine Replace("Path,FileName,Size,Date Modified,Date Crreated", ",", separator)
+	csv.WriteLine Replace("Path,FileName,Size,Date Modified,Date Created", ",", separator)
 
 	ScanFiles scannedPath, scanSubDir, separator
 	

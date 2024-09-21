@@ -8,10 +8,13 @@
 - scan_subdir_or_not ... (optional) if you want to scan all sub-folders, set it to be True
 - "csv_separator" ... (optional) if you want to use your csv separator, set it to be ","
 - debugMode ... (optional) if you want to run in quiet mode, set it to be False.
-![debugMode setting](images/13.png))
+![debugMode setting](images/13.png)
+> running result.
+![running result](images/14.png)
+> [csv output file](FileList.csv)
 ### How to use the script by Windows Task Scheduler.
 1. Open the code and hardcode your paths and some parameters.
-![set the paths](images/10.png))
+![set the paths](images/10.png)
 2. open the Windows Task Schedule, select Create Basic Task and then enter the task name.
 ![Task Schedule](images/01.png)
 3. Task Trigger, select Daily.
