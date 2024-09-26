@@ -1,0 +1,41 @@
+﻿@echo off
+
+setlocal enabledelayedexpansion
+
+set "folderPath=C:\Your\Folder\Path"
+set "fileList=file_list.txt"
+
+for /r "%folderPath%" %%a in (*) do (
+    echo %%a >> %fileList%
+)
+
+
+Explanation:
+
+@echo off: Turns off echoing of commands to the console.
+setlocal enabledelayedexpansion: Enables delayed expansion for variables within a code block.
+set "folderPath=C:\Your\Folder\Path": Sets the path to the folder you want to scan.
+set "fileList=file_list.txt": Sets the name of the output file to store the file list.
+for /r "%folderPath%" %%a in (*) do ( ... ): Recursively iterates through all files and subfolders within the specified folder.
+%folderPath%: The starting folder.
+%%a: Represents the current file or folder being processed.
+echo %%a >> %fileList%: Appends the current file path to the output file.
+How to use:
+
+
+
+
+
+@echo off
+
+setlocal enabledelayedexpansion
+
+set "folderPath=C:\Your\Folder\Path"
+set "fileList=file_list.csv"
+
+for /r "%folderPath%" %%a in (*) do (
+    echo %%a >> %fileList%
+)
+
+type %fileList% | findstr /v /c:"%%a" > %fileList%.tmp
+move %fileList%.tmp %fileList%

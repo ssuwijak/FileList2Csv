@@ -1,0 +1,22 @@
+@echo off
+del /q *.csv
+
+setlocal enabledelayedexpansion
+
+rem set "folderPath=C:\Your\Folder\Path"
+set "folderPath=C:\Windows\Temp"
+set "fileList=file_list.csv"
+
+echo FilePath,FileName,FileSize >> %fileList%
+
+for /r "%folderPath%" %%a in (*) do (
+    set "filePath=%%a"
+    set "fileName=%filePath:~-23%"
+    set "fileSize=%%~za"
+    
+    
+    echo !filePath!,!fileName!,!fileSize! >> %fileList%
+)
+
+
+rem   set "filePath=%%a"  set "fileName=%filePath:~-12%"  !filePath!,!fileName!,!fileSize!  set "fileSize=% ~za"  set "filePath=% % a"
